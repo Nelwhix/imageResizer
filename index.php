@@ -13,7 +13,7 @@
 </head>
 <body>
     <section class="p-5 bg-dark text-light">
-        <div class="container" style="width: 40vw;">
+        <div class="container-sm">
             <form class="row" action="includes/gallery-upload.inc.php" method="POST" enctype="multipart/form-data">
                 <p class="lead text-danger">All values must be in pixels</p>
                 <input type="number" name="width" placeholder="width" class="form-control mb-3" >
