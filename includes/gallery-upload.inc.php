@@ -38,7 +38,7 @@
                 resizeImage($imagefullname);
                 session_start();
                 $_SESSION['imgfullname'] = $imagefullname;
-                header("Location: ../index.php?upload=success");
+                header("Location: https://nelson-image-resizer.herokuapp.com?upload=success");
                         
                 }
             } else {
