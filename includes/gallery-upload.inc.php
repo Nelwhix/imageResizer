@@ -34,15 +34,12 @@
     
         if (in_array($fileActualExt, $allowedtypes)) {
             if ($fileError === 0) {
-                if ($fileSize < 5000000) {
-                        $imagefullname = $newFilename."-resized". uniqid("", true).".". $fileActualExt;
-                        resizeImage($imagefullname);
-                        session_start();
-                        $_SESSION['imgfullname'] = $imagefullname;
-                        header("Location: ../index.php?upload=success");
-                        }
-                } else {
-                    echo "File size is too big";
+                $imagefullname = $newFilename."-resized". uniqid("", true).".". $fileActualExt;
+                resizeImage($imagefullname);
+                session_start();
+                $_SESSION['imgfullname'] = $imagefullname;
+                header("Location: ../index.php?upload=success");
+                        
                 }
             } else {
                 echo "You had an error uploading this file!";
