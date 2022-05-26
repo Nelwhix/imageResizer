@@ -1,5 +1,51 @@
 <?php 
-    session_start();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        require_once 'vendor/autoload.php';
+        if (isset($_POST['submit'])) {
+            //Taking all the parameters from the file superglobal
+            $file = $_FILES['file'];
+            $fileName = $file['name'];
+            $fileType = $file['type'];
+            
+            $fileError = $file['error'];
+            $fileSize = $file['size'];
+
+            $fileExt = explode(".", $fileName);
+            $newFilename = strtolower($fileExt[0]);
+            $fileActualExt = strtolower(end($fileExt));
+
+            $allowedtypes = array("jpg", "png", "jpeg", "jiff");
+
+            function resizeImage($imagefullname) 
+         {
+             global $file;
+             $fileTempname = $file['tmp_name'];
+             $imagine = new \Imagine\Gd\Imagine();
+             $width = $_POST['width'];
+             $height = $_POST['height'];
+             $size = new \Imagine\Image\Box($width, $height);
+             $imagine->open($fileTempname)
+                         ->thumbnail($size)
+                         ->save("Images/". $imagefullname);
+                 }
+
+            if (in_array($fileActualExt, $allowedtypes)) 
+            {
+                if ($fileError === 0) {
+                    $imagefullname = $newFilename."-resized". uniqid("", true).".". $fileActualExt;
+                    resizeImage($imagefullname);
+                    session_start();
+                    $_SESSION['imgfullname'] = $imagefullname;
+                } else {
+                    echo "You had an error uploading this file!";
+                    exit();
+                }
+            }else {
+                    echo "This file type is not supported";
+                    exit();
+                }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +60,7 @@
 <body>
     <section class="p-5 bg-dark text-light">
         <div class="container-sm">
-            <form class="row" action="includes/gallery-upload.inc.php" method="POST" enctype="multipart/form-data">
+            <form class="row" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" enctype="multipart/form-data">
                 <p class="lead text-danger">All values must be in pixels</p>
                 <input type="number" name="width" placeholder="width" class="form-control mb-3" >
                 <input type="number" name="height" placeholder="height" class="form-control mb-3">
@@ -24,9 +70,9 @@
         </div>
 </section>
 <?php 
-    if (!isset($_GET['upload'])) {
-        $_GET['upload'] = 'none';
-    }else if ($_GET['upload'] == 'success') {
+    if (!isset($_SESSION['imgfullname'])) {
+        $_SESSION['imgfullname'] = 'none';
+    }   else {
 ?>
 <section class="p-5 bg-light">
     <div class="container">

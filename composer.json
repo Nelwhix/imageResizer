@@ -1,0 +1,17 @@
+{
+    "name": "nelwhix/image-resizer",
+    "autoload": {
+        "psr-4": {
+            "Nelwhix\\ImageResizer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nelwhix",
+            "email": "nelsonisioma1@gmail.com"
+        }
+    ],
+    "require": {
+        "imagine/imagine": "^1.3"
+    }
+}

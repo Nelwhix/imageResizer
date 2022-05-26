@@ -38,8 +38,8 @@
                 resizeImage($imagefullname);
                 session_start();
                 $_SESSION['imgfullname'] = $imagefullname;
-                header("Location: https://nelson-image-resizer.herokuapp.com?upload=success");
-                        
+                //The header function wahala
+                header("Location: ");
                 }
             } else {
                 echo "You had an error uploading this file!";
@@ -49,4 +49,28 @@
             echo "This file type is not supported";
             exit();
         }
-    
+
+
+
+
+
+
+
+
+
+
+
+         
+
+         
+     
+         
+             
+             } else {
+                
+             }
+         } 
+         if ($fileError === 0) {
+            
+            
+            }
