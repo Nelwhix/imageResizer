@@ -15,36 +15,37 @@
             $fileActualExt = strtolower(end($fileExt));
 
             $allowedtypes = array("jpg", "png", "jpeg", "jiff");
-
-            function resizeImage($imagefullname) 
-         {
-             global $file;
-             $fileTempname = $file['tmp_name'];
-             $imagine = new \Imagine\Gd\Imagine();
-             $width = $_POST['width'];
-             $height = $_POST['height'];
-             $size = new \Imagine\Image\Box($width, $height);
-             $imagine->open($fileTempname)
-                         ->thumbnail($size)
-                         ->save("Images/". $imagefullname);
-                 }
-
-            if (in_array($fileActualExt, $allowedtypes)) 
-            {
-                if ($fileError === 0) {
-                    $imagefullname = $newFilename."-resized". uniqid("", true).".". $fileActualExt;
-                    resizeImage($imagefullname);
-                    session_start();
-                    $_SESSION['imgfullname'] = $imagefullname;
-                } else {
-                    echo "You had an error uploading this file!";
-                    exit();
-                }
-            }else {
-                    echo "This file type is not supported";
-                    exit();
-                }
+            echo $fileError;
         }
+        //     function resizeImage($imagefullname) 
+        //  {
+        //      global $file;
+        //      $fileTempname = $file['tmp_name'];
+        //      $imagine = new \Imagine\Gd\Imagine();
+        //      $width = $_POST['width'];
+        //      $height = $_POST['height'];
+        //      $size = new \Imagine\Image\Box($width, $height);
+        //      $imagine->open($fileTempname)
+        //                  ->thumbnail($size)
+        //                  ->save("Images/". $imagefullname);
+        //          }
+
+        //     if (in_array($fileActualExt, $allowedtypes)) 
+        //     {
+        //         if ($fileError === 0) {
+        //             $imagefullname = $newFilename."-resized". uniqid("", true).".". $fileActualExt;
+        //             resizeImage($imagefullname);
+        //             session_start();
+        //             $_SESSION['imgfullname'] = $imagefullname;
+        //         } else {
+        //             echo "You had an error uploading this file!";
+        //             exit();
+        //         }
+        //     }else {
+        //             echo "This file type is not supported";
+        //             exit();
+        //         }
+        // }
     }
 ?>
 <!DOCTYPE html>
@@ -72,7 +73,7 @@
 <?php 
     if (!isset($_SESSION['imgfullname'])) {
         $_SESSION['imgfullname'] = 'none';
-    }   else {
+    }else  {
 ?>
 <section class="p-5 bg-light">
     <div class="container">
